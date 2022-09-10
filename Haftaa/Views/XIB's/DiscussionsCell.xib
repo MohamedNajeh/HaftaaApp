@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="143" id="KGk-i7-Jjw" customClass="DiscussionsCell" customModule="Haftaa" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="606" height="143"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="606" height="143"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="bOf-tW-q5G">
+                        <rect key="frame" x="5" y="5" width="596" height="133"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-gH-xb0">
+                                <rect key="frame" x="0.0" y="0.0" width="596" height="133"/>
+                                <color key="backgroundColor" red="0.87169414759999997" green="0.94488888979999996" blue="0.99631577729999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="طرق التغليف وبدائلها"/>
+                                <connections>
+                                    <action selector="btnTitleAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dl5-aL-Xcf"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z8N-2u-aNg">
+                                <rect key="frame" x="0.0" y="133" width="596" height="90"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="s13-uM-Sfq">
+                                        <rect key="frame" x="123" y="10" width="350" height="20"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="SGf-dL-e67">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="263-Cc-bAF">
+                                                        <rect key="frame" x="0.0" y="0.0" width="33" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hand.thumbsdown.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nAo-xQ-mHN">
+                                                        <rect key="frame" x="35" y="0.5" width="21" height="20"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7d-6U-Tnz">
+                                                        <rect key="frame" x="58" y="0.0" width="9" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hand.thumbsup.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OkM-0R-no3">
+                                                        <rect key="frame" x="69" y="-0.5" width="21" height="20"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="65k-Ea-NOQ">
+                                                <rect key="frame" x="140" y="0.0" width="78" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="منذ شهرين" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtt-Ow-FPd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat" translatesAutoresizingMaskIntoConstraints="NO" id="6wZ-mu-EhQ">
+                                                        <rect key="frame" x="62" y="0.0" width="16" height="20"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="b6N-Nc-eh8">
+                                                <rect key="frame" x="268" y="0.0" width="82" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="منذ شهرين" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPk-3t-7bp">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IjH-aY-Rey">
+                                                        <rect key="frame" x="62" y="0.5" width="20" height="19"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="350" id="Trz-YG-dks"/>
+                                            <constraint firstItem="65k-Ea-NOQ" firstAttribute="leading" secondItem="s13-uM-Sfq" secondAttribute="leading" constant="140" id="eyU-8N-ZCc"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="شارك معنا بتجربتك" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BqS-1q-YwR">
+                                        <rect key="frame" x="73.5" y="44" width="517.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="١٣/٧/٢٠٢٢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xU-VU-zHd">
+                                        <rect key="frame" x="5" y="54" width="50" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.1753260791" green="0.58549970389999995" blue="0.78945368530000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.87169414759999997" green="0.94488888979999996" blue="0.99631577729999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="4xU-VU-zHd" firstAttribute="top" secondItem="s13-uM-Sfq" secondAttribute="bottom" constant="24" id="124-zT-da8"/>
+                                    <constraint firstItem="4xU-VU-zHd" firstAttribute="leading" secondItem="z8N-2u-aNg" secondAttribute="leading" constant="5" id="Gyy-3U-a2b"/>
+                                    <constraint firstAttribute="height" constant="90" id="ILU-tn-G1X"/>
+                                    <constraint firstItem="s13-uM-Sfq" firstAttribute="centerX" secondItem="z8N-2u-aNg" secondAttribute="centerX" id="Q3q-sn-KbT"/>
+                                    <constraint firstItem="BqS-1q-YwR" firstAttribute="leading" secondItem="4xU-VU-zHd" secondAttribute="trailing" constant="18.5" id="Q55-iA-XJf"/>
+                                    <constraint firstAttribute="trailing" secondItem="BqS-1q-YwR" secondAttribute="trailing" constant="5" id="RgD-Bf-HIH"/>
+                                    <constraint firstItem="BqS-1q-YwR" firstAttribute="top" secondItem="s13-uM-Sfq" secondAttribute="bottom" constant="14" id="o3u-OG-sh9"/>
+                                    <constraint firstItem="s13-uM-Sfq" firstAttribute="top" secondItem="z8N-2u-aNg" secondAttribute="top" constant="10" id="wza-bk-TVh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVn-Ev-t6L">
+                        <rect key="frame" x="551" y="46.5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="5x7-Wf-3K8"/>
+                            <constraint firstAttribute="height" constant="50" id="sfF-gu-byn"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="arrow.down.app.fill" catalog="system"/>
+                        <connections>
+                            <action selector="showHide:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cgz-r5-WEH"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="bOf-tW-q5G" secondAttribute="bottom" constant="5" id="Jbf-WV-TF9"/>
+                    <constraint firstAttribute="trailing" secondItem="bOf-tW-q5G" secondAttribute="trailing" constant="5" id="N4a-ah-q1N"/>
+                    <constraint firstItem="bOf-tW-q5G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="RWZ-3r-wDC"/>
+                    <constraint firstAttribute="trailing" secondItem="qVn-Ev-t6L" secondAttribute="trailing" constant="5" id="WC4-j3-dIQ"/>
+                    <constraint firstItem="qVn-Ev-t6L" firstAttribute="centerY" secondItem="Jab-gH-xb0" secondAttribute="centerY" id="gKv-NL-vRv"/>
+                    <constraint firstItem="bOf-tW-q5G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="w9L-Ni-ZXz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnShowAndHide" destination="qVn-Ev-t6L" id="UZU-Q4-nMl"/>
+                <outlet property="btnTitle" destination="Jab-gH-xb0" id="mvp-fS-fJo"/>
+                <outlet property="commentsCountLbl" destination="Xtt-Ow-FPd" id="vsb-N6-GFv"/>
+                <outlet property="descriptionLbl" destination="BqS-1q-YwR" id="Aad-y0-RiM"/>
+                <outlet property="dislikeCountLbl" destination="263-Cc-bAF" id="Sdl-SY-NbZ"/>
+                <outlet property="likesCountLbl" destination="G7d-6U-Tnz" id="BeN-wT-Tnp"/>
+                <outlet property="sinceLbl" destination="ZPk-3t-7bp" id="rdy-BH-Ejf"/>
+                <outlet property="timeLbl" destination="4xU-VU-zHd" id="ZLc-GO-l9N"/>
+                <outlet property="viewToHide" destination="z8N-2u-aNg" id="8mJ-gU-B11"/>
+            </connections>
+            <point key="canvasLocation" x="-19" y="4"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow.down.app.fill" catalog="system" width="128" height="114"/>
+        <image name="chat" width="16" height="16"/>
+        <image name="clock.fill" catalog="system" width="128" height="121"/>
+        <image name="hand.thumbsdown.fill" catalog="system" width="128" height="121"/>
+        <image name="hand.thumbsup.fill" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

@@ -1,0 +1,82 @@
+PODS:
+  - Alamofire (5.5.0)
+  - AssetsPickerViewController (2.9.7):
+    - SnapKit
+  - BSImagePicker (3.3.1)
+  - Cosmos (23.0.0)
+  - DropDown (2.3.13)
+  - GoogleMaps (7.0.0):
+    - GoogleMaps/Maps (= 7.0.0)
+  - GoogleMaps/Base (7.0.0)
+  - GoogleMaps/Maps (7.0.0):
+    - GoogleMaps/Base
+  - IQKeyboardManagerSwift (6.5.9)
+  - JJFloatingActionButton (2.5.0)
+  - Kingfisher (7.1.2)
+  - Reachability (3.2)
+  - SDWebImage (5.12.2):
+    - SDWebImage/Core (= 5.12.2)
+  - SDWebImage/Core (5.12.2)
+  - SideMenu (6.5.0)
+  - SnapKit (5.6.0)
+  - Socket.IO-Client-Swift (16.0.1):
+    - Starscream (~> 4.0)
+  - Starscream (4.0.4)
+  - SwiftIcons (3.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AssetsPickerViewController
+  - BSImagePicker
+  - Cosmos
+  - DropDown
+  - GoogleMaps
+  - IQKeyboardManagerSwift
+  - JJFloatingActionButton
+  - Kingfisher
+  - Reachability
+  - SDWebImage
+  - SideMenu
+  - Socket.IO-Client-Swift
+  - SwiftIcons
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AssetsPickerViewController
+    - BSImagePicker
+    - Cosmos
+    - DropDown
+    - GoogleMaps
+    - IQKeyboardManagerSwift
+    - JJFloatingActionButton
+    - Kingfisher
+    - Reachability
+    - SDWebImage
+    - SideMenu
+    - SnapKit
+    - Socket.IO-Client-Swift
+    - Starscream
+    - SwiftIcons
+
+SPEC CHECKSUMS:
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  AssetsPickerViewController: 4343e10ace86e425097043c17efa145c1ec868ce
+  BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  GoogleMaps: 6e9c923ca035989709fcb5771544fda4cc5fa2a4
+  IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  JJFloatingActionButton: fdc3aefb0f28f04d0f988fa25d5fac97028a9ea7
+  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
+  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
+  SwiftIcons: 3b748e57d9eee0c7c8d3bdbf2d742c0b1b4c6172
+
+PODFILE CHECKSUM: 41ba33d62d8e7e72c1765966ebebffd57f894187
+
+COCOAPODS: 1.11.2

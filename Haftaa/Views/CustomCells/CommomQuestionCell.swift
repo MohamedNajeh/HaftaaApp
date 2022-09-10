@@ -9,8 +9,12 @@ import UIKit
 
 class CommomQuestionCell: UITableViewCell {
 
+    @IBOutlet weak var container: UIView!
+    @IBOutlet weak var questionLbl: UILabel!
+    @IBOutlet weak var answerLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        container.layer.cornerRadius = 20
         // Initialization code
     }
 

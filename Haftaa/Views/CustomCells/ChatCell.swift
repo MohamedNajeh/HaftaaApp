@@ -9,9 +9,12 @@ import UIKit
 
 class ChatCell: UITableViewCell {
 
+    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var chatStack: UIStackView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        textView.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

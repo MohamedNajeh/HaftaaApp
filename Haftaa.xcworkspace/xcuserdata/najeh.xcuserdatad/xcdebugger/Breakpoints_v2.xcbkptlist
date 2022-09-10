@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "5297159B-B11A-44DF-AF3E-B42DA27E4844"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC15B817-1C97-4D1B-8394-AA85072DCD74"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Haftaa/Helpers/AttatchmentHandler.swift"
+            startingColumnNumber = "26"
+            endingColumnNumber = "26"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "compressWithSessionStatusFunc(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
