@@ -7,15 +7,42 @@
 
 import UIKit
 import SideMenu
-
+import DropDown
+import IQKeyboardManagerSwift
+import UserNotifications
+import GoogleMaps
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UNUserNotificationCenterDelegate {
 
-
+              // applinks:hvps.exdezign.com
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        DropDown.startListeningToKeyboard()
+        IQKeyboardManager.shared.enable = true
+        
+        
+        GMSServices.provideAPIKey("ba2fdde4e9431e42")
+        //GMSPlacesClient.provideAPIKey("AIzaSyA9UBKQHciVMSJZEoM640mtwKkTXavjrD4")
+        UNUserNotificationCenter
+            .current()
+            .requestAuthorization(options: [.alert,.badge,.sound]) { granted, error in
+                if granted {
+                    print("Permitted")
+                }
+            }
+        UNUserNotificationCenter.current().delegate = self
         // Override point for customization after application launch.
         return true
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        
+        completionHandler( [.alert, .badge, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
     }
 
     // MARK: UISceneSession Lifecycle
@@ -42,6 +69,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
             return true
     }
+//    func presentDetailViewController(_ computer: Computer) {
+//      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//
+//      guard
+//        let detailVC = storyboard
+//          .instantiateViewController(withIdentifier: "DetailController")
+//            as? ComputerDetailController,
+//        let navigationVC = storyboard
+//          .instantiateViewController(withIdentifier: "NavigationController")
+//            as? UINavigationController
+//      else { return }
+//
+//      detailVC.item = computer
+//      navigationVC.modalPresentationStyle = .formSheet
+//      navigationVC.pushViewController(detailVC, animated: true)
+//    }
+
 
 
 }

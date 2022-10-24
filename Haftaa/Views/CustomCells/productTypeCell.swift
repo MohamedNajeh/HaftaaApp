@@ -13,7 +13,9 @@ class productTypeCell: UICollectionViewCell {
     @IBOutlet weak var imgV: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        contentView.layer.cornerRadius = 20
         imgV.layer.cornerRadius = 20
+        contentView.layer.borderWidth = 3
         // Initialization code
     }
 

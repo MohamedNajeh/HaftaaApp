@@ -78,4 +78,10 @@ extension AddsInCity:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = UIStoryboard(name: "AdsDetails", bundle: nil).instantiateViewController(withIdentifier: "adsDetailsVC") as! adsDetailsVC
+        vc.addID = addsInCityList[indexPath.row].id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

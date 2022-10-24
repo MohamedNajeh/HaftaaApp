@@ -28,7 +28,7 @@ struct CommonQestions : Codable {
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        data = try values.decodeIfPresent([Data].self, forKey: .data)
+        data = try values.decodeIfPresent([CommonQ].self, forKey: .data)
         message = try values.decodeIfPresent(String.self, forKey: .message)
         success = try values.decodeIfPresent(Bool.self, forKey: .success)
         status = try values.decodeIfPresent(Int.self, forKey: .status)

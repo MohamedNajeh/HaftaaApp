@@ -18,10 +18,10 @@ class SideMenuCell: UITableViewCell {
         self.backgroundColor = .clear
         
         // Icon
-        self.imgV.tintColor = .white
+        self.imgV.tintColor = .black
         
         // Title
-        self.titleLbl.textColor = .white
+        self.titleLbl.textColor = .black
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

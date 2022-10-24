@@ -13,7 +13,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 import Foundation
 struct countriesRoot : Codable {
-	let data : [Data]?
+	let data : [Country]?
 	let message : String?
 	let success : Bool?
 	let status : Int?
@@ -28,7 +28,7 @@ struct countriesRoot : Codable {
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		data = try values.decodeIfPresent([Data].self, forKey: .data)
+		data = try values.decodeIfPresent([Country].self, forKey: .data)
 		message = try values.decodeIfPresent(String.self, forKey: .message)
 		success = try values.decodeIfPresent(Bool.self, forKey: .success)
 		status = try values.decodeIfPresent(Int.self, forKey: .status)

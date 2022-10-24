@@ -11,7 +11,7 @@ import SwiftUI
 
 extension  adsDetailsVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == commentsAndAdTable {
             return 3
@@ -47,7 +47,21 @@ extension  adsDetailsVC:UICollectionViewDelegate,UICollectionViewDataSource,UICo
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adImagesCell", for: indexPath) as! adImagesCell
         cell.configureImage(image: images?[indexPath.row].image ?? "")
+        adImagesCollection.isPagingEnabled = true
         return cell
+    }
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        //targetContentOffset.pointee = scrollView.contentOffset
+        for cell in adImagesCollection.visibleCells {
+            let indexPath = adImagesCollection.indexPath(for: cell)
+            print(indexPath!)
+            imagesCountLbl.text = "\((indexPath?.row ?? 0 ) + 1)/\(images?.count ?? 0)"
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

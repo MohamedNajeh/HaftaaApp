@@ -33,6 +33,9 @@ class AppUpdater: NSObject {
 
     private  func checkVersion(force: Bool) {
         let info = Bundle.main.infoDictionary
+        if let text = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            print(text)
+        }
         if let currentVersion = info?["CFBundleShortVersionString"] as? String {
             _ = getAppInfo { (info, error) in
                 if let appStoreAppVersion = info?.version{
@@ -40,7 +43,7 @@ class AppUpdater: NSObject {
                         print("error getting app store version: ", error)
                     } else if appStoreAppVersion == currentVersion {
                         print("Already on the last app version: ",currentVersion)
-                    } else {
+                    } else if appStoreAppVersion > currentVersion {
                         print("Needs update: AppStore Version: \(appStoreAppVersion) > Current version: ",currentVersion)
                         DispatchQueue.main.async {
                             let topController: UIViewController = UIApplication.shared.keyWindow!.rootViewController!

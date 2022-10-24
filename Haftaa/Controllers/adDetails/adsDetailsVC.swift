@@ -19,7 +19,7 @@ adsDetailsVC: UITableViewController {
     var reasons:[reasonElement] = []
     var isRate = true
     var dropDown = DropDown()
-    var reasonID = 0
+    var reasonID = 0 , displayesImage = 1
     var addID:Int?
     
     
@@ -69,6 +69,7 @@ adsDetailsVC: UITableViewController {
     @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var stackDeleteAndEdit: UIStackView!
     
+    @IBOutlet weak var imagesCountLbl: UILabel!
     let view1 = UIView()
     let stackView = UIStackView()
     let btnWhatsApp = UIButton()
@@ -138,11 +139,13 @@ adsDetailsVC: UITableViewController {
         if images?.count == 0 && details?.video == "" {
             imagesAndVedioView.isHidden = true
             btnImages.isHidden = true
+            imagesCountLbl.isHidden = true
             btnVedio.isHidden = true
         }else if images?.count != 0 && details?.video == "" {
             btnVedio.isHidden = true
         }else if images?.count == 0 && details?.video != "" {
             btnImages.isHidden = true
+            imagesCountLbl.isHidden = true
         }
             
         
@@ -296,6 +299,7 @@ adsDetailsVC: UITableViewController {
                 self.related = adDetails.data?.related
                 DispatchQueue.main.async {
                     self.images = self.details?.images
+                    self.imagesCountLbl.text = "\(self.displayesImage)/\(self.images?.count ?? 0)"
                     self.lblTitle.text = self.details?.title
                     self.tvDescription.text = self.details?.detail
                     self.configureAdPrperties()
@@ -566,6 +570,22 @@ adsDetailsVC: UITableViewController {
                 }
             }
         }
+    }
+    
+    
+    @IBAction func openAdsinCityLbl(_ sender: Any) {
+        let vc = UIStoryboard(name: "AdsDetails", bundle: nil).instantiateViewController(withIdentifier: "AddsInCity") as! AddsInCity
+        vc.cityID = details?.city?.id ?? 0
+        vc.title = details?.city?.name
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func openUserInfo(_ sender: Any) {
+        let vc = UIStoryboard(name: "AdsDetails", bundle: nil).instantiateViewController(withIdentifier: "UserDetailsVC") as! UserDetailsVC
+        
+        vc.userDetails = details?.user
+        vc.title = details?.user?.name
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

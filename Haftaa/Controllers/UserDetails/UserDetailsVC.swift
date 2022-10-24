@@ -240,5 +240,16 @@ extension UserDetailsVC:UITableViewDelegate,UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if rateSelected {
+            
+        }else{
+            
+            let vc = UIStoryboard(name: "AdsDetails", bundle: nil).instantiateViewController(withIdentifier: "adsDetailsVC") as! adsDetailsVC
+            vc.addID = myAds[indexPath.row].id
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 
 }
