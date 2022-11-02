@@ -31,6 +31,7 @@
 		18E2C8F82872F768008DA60A /* Strint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C8F72872F768008DA60A /* Strint+Ext.swift */; };
 		18F0B0942871DF8900FB2E13 /* AdsDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F0B0932871DF8900FB2E13 /* AdsDetails.storyboard */; };
 		18F0B0962871E0BC00FB2E13 /* adsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F0B0952871E0BC00FB2E13 /* adsDetailsVC.swift */; };
+		4B85DE19F2AD7940E72377A9 /* Pods_Haftaa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7770084EDDAD7455E2E4F4C /* Pods_Haftaa.framework */; };
 		5B0D48602897185700B05662 /* ReviewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0D485E2897185700B05662 /* ReviewsList.swift */; };
 		5B0D486C2897399B00B05662 /* ReviewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0D486A2897399A00B05662 /* ReviewsCollectionCell.swift */; };
 		5B0D486D2897399B00B05662 /* ReviewsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0D486B2897399A00B05662 /* ReviewsCollectionCell.xib */; };
@@ -134,10 +135,10 @@
 		5BE68F1228A0559300F51196 /* StaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE68F1128A0559300F51196 /* StaticPagesVC.swift */; };
 		5BE68F1428A05AC000F51196 /* StaticPageDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE68F1328A05AC000F51196 /* StaticPageDetails.swift */; };
 		5BFC1FA52890A3A100B8F776 /* AddFavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC1FA42890A3A100B8F776 /* AddFavoriteModel.swift */; };
-		5D5C0D9314665F5394DE76F8 /* Pods_Haftaa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44DBD38F9F4D549D12E53DD /* Pods_Haftaa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06860EB5C08842EE11D63477 /* Pods-Haftaa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Haftaa.release.xcconfig"; path = "Target Support Files/Pods-Haftaa/Pods-Haftaa.release.xcconfig"; sourceTree = "<group>"; };
 		1815278D28991F4F00E857BA /* DiscussionDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionDetailsVC.swift; sourceTree = "<group>"; };
 		182C35232896812200F483D6 /* ChatMembersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMembersCell.swift; sourceTree = "<group>"; };
 		182C35242896812200F483D6 /* ChatMembersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMembersCell.xib; sourceTree = "<group>"; };
@@ -162,6 +163,7 @@
 		18E2C8F72872F768008DA60A /* Strint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strint+Ext.swift"; sourceTree = "<group>"; };
 		18F0B0932871DF8900FB2E13 /* AdsDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdsDetails.storyboard; sourceTree = "<group>"; };
 		18F0B0952871E0BC00FB2E13 /* adsDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = adsDetailsVC.swift; sourceTree = "<group>"; };
+		1B31F431EA8A531F10CA9879 /* Pods-Haftaa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Haftaa.debug.xcconfig"; path = "Target Support Files/Pods-Haftaa/Pods-Haftaa.debug.xcconfig"; sourceTree = "<group>"; };
 		5B0D485E2897185700B05662 /* ReviewsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsList.swift; sourceTree = "<group>"; };
 		5B0D486A2897399A00B05662 /* ReviewsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCollectionCell.swift; sourceTree = "<group>"; };
 		5B0D486B2897399A00B05662 /* ReviewsCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsCollectionCell.xib; sourceTree = "<group>"; };
@@ -268,9 +270,7 @@
 		5BE68F1128A0559300F51196 /* StaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticPagesVC.swift; sourceTree = "<group>"; };
 		5BE68F1328A05AC000F51196 /* StaticPageDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticPageDetails.swift; sourceTree = "<group>"; };
 		5BFC1FA42890A3A100B8F776 /* AddFavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFavoriteModel.swift; sourceTree = "<group>"; };
-		63841F5750EEACCC198EAA48 /* Pods-Haftaa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Haftaa.debug.xcconfig"; path = "Target Support Files/Pods-Haftaa/Pods-Haftaa.debug.xcconfig"; sourceTree = "<group>"; };
-		6AA66CF371760DF559C89A3F /* Pods-Haftaa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Haftaa.release.xcconfig"; path = "Target Support Files/Pods-Haftaa/Pods-Haftaa.release.xcconfig"; sourceTree = "<group>"; };
-		C44DBD38F9F4D549D12E53DD /* Pods_Haftaa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Haftaa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7770084EDDAD7455E2E4F4C /* Pods_Haftaa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Haftaa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,7 +278,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D5C0D9314665F5394DE76F8 /* Pods_Haftaa.framework in Frameworks */,
+				4B85DE19F2AD7940E72377A9 /* Pods_Haftaa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,8 +288,8 @@
 		0A5B7562D9756BFF4C30C612 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				63841F5750EEACCC198EAA48 /* Pods-Haftaa.debug.xcconfig */,
-				6AA66CF371760DF559C89A3F /* Pods-Haftaa.release.xcconfig */,
+				1B31F431EA8A531F10CA9879 /* Pods-Haftaa.debug.xcconfig */,
+				06860EB5C08842EE11D63477 /* Pods-Haftaa.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -463,7 +463,7 @@
 				5BB5FCA828137B2E00178CED /* Haftaa */,
 				5BB5FCA728137B2E00178CED /* Products */,
 				0A5B7562D9756BFF4C30C612 /* Pods */,
-				C3D1E4E17308F30CF15C13CD /* Frameworks */,
+				AB72FAF308537B9B80B83A1C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -632,10 +632,10 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		C3D1E4E17308F30CF15C13CD /* Frameworks */ = {
+		AB72FAF308537B9B80B83A1C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C44DBD38F9F4D549D12E53DD /* Pods_Haftaa.framework */,
+				C7770084EDDAD7455E2E4F4C /* Pods_Haftaa.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -647,12 +647,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BB5FCBA28137B3100178CED /* Build configuration list for PBXNativeTarget "Haftaa" */;
 			buildPhases = (
-				EFC9FE1206039A460E6890B5 /* [CP] Check Pods Manifest.lock */,
+				96FB0B86D393950A4CD44004 /* [CP] Check Pods Manifest.lock */,
 				5BB5FCA228137B2E00178CED /* Sources */,
 				5BB5FCA328137B2E00178CED /* Frameworks */,
 				5BB5FCA428137B2E00178CED /* Resources */,
-				E8222236DF27A5E4ACC1460C /* [CP] Embed Pods Frameworks */,
-				336852287897955ADD9BF4D8 /* [CP] Copy Pods Resources */,
+				887C810B01905CA2AB705DDB /* [CP] Embed Pods Frameworks */,
+				2BE94C69FC98EA4E1705CEA7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -736,7 +736,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		336852287897955ADD9BF4D8 /* [CP] Copy Pods Resources */ = {
+		2BE94C69FC98EA4E1705CEA7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -753,7 +753,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Haftaa/Pods-Haftaa-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E8222236DF27A5E4ACC1460C /* [CP] Embed Pods Frameworks */ = {
+		887C810B01905CA2AB705DDB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -770,7 +770,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Haftaa/Pods-Haftaa-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EFC9FE1206039A460E6890B5 /* [CP] Check Pods Manifest.lock */ = {
+		96FB0B86D393950A4CD44004 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1040,7 +1040,7 @@
 		};
 		5BB5FCBB28137B3100178CED /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63841F5750EEACCC198EAA48 /* Pods-Haftaa.debug.xcconfig */;
+			baseConfigurationReference = 1B31F431EA8A531F10CA9879 /* Pods-Haftaa.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1082,7 +1082,7 @@
 		};
 		5BB5FCBC28137B3100178CED /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AA66CF371760DF559C89A3F /* Pods-Haftaa.release.xcconfig */;
+			baseConfigurationReference = 06860EB5C08842EE11D63477 /* Pods-Haftaa.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
