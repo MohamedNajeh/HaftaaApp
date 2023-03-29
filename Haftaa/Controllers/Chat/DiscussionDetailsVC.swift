@@ -20,6 +20,7 @@ class DiscussionDetailsVC: UIViewController {
     var idID:Int?
     var details:OneDiscussionDetails?
     var comments:[DiscussComment]?
+    var parentID = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollection()
@@ -40,43 +41,45 @@ class DiscussionDetailsVC: UIViewController {
     }
     
     func setDataInView(data:Discussions){
-        detailsLbl.attributedText = data.datumDescription.htmlToAttributedString
-        dislikesCountLbl.text = "\(data.countDisLike)"
-        likesCountLbl.text = "\(data.countLike)"
-        commentsCountLbl.text = "\(data.countComment)"
+        detailsLbl.attributedText = data.datumDescription?.htmlToAttributedString
+        dislikesCountLbl.text = "\(data.countDisLike ?? 0)"
+        likesCountLbl.text = "\(data.countLike ?? 0)"
+        commentsCountLbl.text = "\(data.countComment ?? 0)"
         sinceLbl.text = data.since
         titleLbl.text = data.title
     }
     
     func observeNewComment(){
-        SocketHelper.shared.getGeneralComment { messageInfo in
-            //print(messageInfo)
+        SocketHelper.shared.getGeneralComment { [weak self] messageInfo in
+            
+            self?.getDetails(id: self?.idID ?? 0)
+            print(messageInfo)
             let user = User(id: messageInfo?[0].user_id, userName: messageInfo?[0].name, name: messageInfo?[0].name, phone: "", photoPath: "", photoID: "", nationalIdentityPath: "", nationalIdentity: 0, commercialRegisterPath: "", commercialRegister: 0, favourPath: "", favour: 0, workPermitPath: "", workPermit: 0, sajalMadaniun: "", allowPhone: 0, whatsapp: 0, email: "", city: nil, newPassword: 0, country: nil, step: 0, trusted: 0)
-            let newComment = DiscussComment(id: messageInfo?[0].id, user: user, comment: messageInfo?[0].comment, date: messageInfo?[0].since)
-            self.comments?.append(newComment)
+            let newComment = DiscussComment(id: messageInfo?[0].id, user: user, comment: messageInfo?[0].comment, date: messageInfo?[0].since,parent: nil,delete: 0)
+            self?.comments?.append(newComment)
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                if self.comments?.count ?? 0 > 2 {
-                    let indexPath = NSIndexPath(row: (self.comments?.count ?? 0) - 1, section: 0)
-                    self.collectionView.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
+                self?.collectionView.reloadData()
+                if self?.comments?.count ?? 0 > 2 {
+                    let indexPath = NSIndexPath(row: (self?.comments?.count ?? 0) - 1, section: 0)
+                    self?.collectionView.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
                 }
             }
-            //self.details?.data?.comments.append(newComment)
+            self?.details?.data?.comments?.append(newComment)
         }
     }
     
     func getDetails(id:Int){
         showLoadingView()
-        NetworkManager.shared.fetchData(url: "general_chat/\(id)", decodable: OneDiscussionDetails.self) { response in
-            self.removeLoadingView()
+        NetworkManager.shared.fetchData(url: "general_chat/\(id)", decodable: OneDiscussionDetails.self) {[weak self] response in
+            self?.removeLoadingView()
             switch response {
             case .success(let resp):
                 print(resp)
-                self.details = resp
-                self.comments = resp.data?.comments ?? []
+                self?.details = resp
+                self?.comments = resp.data?.comments ?? []
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.setDataInView(data: resp.data!)
+                    self?.collectionView.reloadData()
+                    self?.setDataInView(data: resp.data!)
                 }
             case .failure(let error):
                 print(error)
@@ -84,13 +87,14 @@ class DiscussionDetailsVC: UIViewController {
         }
     }
     
-    func addComment(id:Int,message:String){
+    func addComment(id:Int,message:String,parentID:Int){
         showLoadingView()
-        NetworkManager.shared.addCommentToGeneral(url: "comment_chat", chat_id: id, message: message) { response in
+        NetworkManager.shared.addCommentToGeneral(url: "comment_chat", chat_id: id, message: message,parentID:parentID) { response in
             self.removeLoadingView()
             switch response {
-            case .success(let resp):
+            case .success(let _):
                 print("Done")
+                self.parentID = 0
                // AlertsManager.showAlert(withTitle: "تم بنجاح", message: resp.message, viewController: self)
             case .failure(let error):
                 AlertsManager.showAlert(withTitle: "تنبيه", message: error.localizedDescription, viewController: self)
@@ -118,7 +122,19 @@ class DiscussionDetailsVC: UIViewController {
         if commentTF.text == "اكتب مشاركتك" {
             AlertsManager.showAlert(withTitle: "تنبيه", message: "الرجاء كتابة تعليق", viewController: self)
         }else{
-            addComment(id: self.idID ?? 0, message: commentTF.text)
+            addComment(id: self.idID ?? 0, message: commentTF.text, parentID: self.parentID)
+        }
+    }
+    
+    @IBAction func shareBtnPressed(_ sender: Any) {
+        let sharePath = details?.data?.route ?? ""
+        let message = "يسعدنا انضمامك للمناقشة: \(details?.data?.title ?? "") في سوق الهفتاء"
+        if let name = URL(string: sharePath), !name.absoluteString.isEmpty {
+            let objectsToShare = [message,name] as [Any]
+          let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+          self.present(activityVC, animated: true, completion: nil)
+        } else {
+            AlertsManager.showAlert(withTitle: "خطأ", message: "حدث خطأ غي مشاركة الاعلان", viewController: self)
         }
     }
 }
@@ -130,7 +146,30 @@ extension DiscussionDetailsVC:UICollectionViewDelegate,UICollectionViewDataSourc
             self.comments?.remove(at: tag)
             self.collectionView.reloadData()
         }
-        
+    }
+    
+    func showParent(tag: Int) {
+        guard let parent = comments?[tag].parent else {
+            print("couldn't get parent at tag \(tag)")
+            return
+        }
+        print("parent id is\(parent.id ?? 0)")
+        if let index = comments?.firstIndex(where: { $0.id == parent.id }) {
+            print("Index of element with id: \(index)  \(comments?[index].id ?? 0)")
+            let indexPath = IndexPath(item: index, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+        } else {
+            print("Element with id not found")
+        }
+    }
+    
+    func replay(tag: Int) {
+        self.commentTF.becomeFirstResponder()
+        guard let parent = comments?[tag].id else {
+            print("couldn't get parent at tag \(tag)")
+            return
+        }
+        self.parentID = parent ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -142,8 +181,15 @@ extension DiscussionDetailsVC:UICollectionViewDelegate,UICollectionViewDataSourc
         cell.userLbl.text = comments?[indexPath.row].user?.name
         cell.timeLbl.text = comments?[indexPath.row].date
         cell.commentLbl.text = comments?[indexPath.row].comment
+        
+        if comments?[indexPath.row].parent ?? nil != nil {
+            cell.parentLbl.setTitle("#\(comments?[indexPath.row].parent?.comment ?? "") @\(comments?[indexPath.row].parent?.user?.name ?? "")", for: .normal)
+        }
+        
         cell.delegate = self
-        cell.deletBtn.tag = indexPath.row
+        cell.deletBtn.tag      = indexPath.row
+        cell.showParentBtn.tag = indexPath.row
+        cell.replayBtn.tag     = indexPath.row
         if UserInfo.getUserID() == comments?[indexPath.row].user?.id {
             cell.deletBtn.isHidden = false
         }else{

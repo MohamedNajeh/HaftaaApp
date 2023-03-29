@@ -182,6 +182,7 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
 //            }, completion:  nil)
 //
 //        })
+        //NotificationCenter.default.post(name: .init("open_Rate"), object: nil,userInfo: ["tripId":tripID])
     }
     
     @objc func enableAdvancedSearch(){
@@ -189,12 +190,16 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
         self.arrowsStack.isHidden = false
     }
     
-    @objc func showNotifRedCircle(){
-        notifNumberLbl.isHidden = false
+    @objc func showNotifRedCircle(notification:NSNotification){
+        let count = notification.userInfo!["countNotification"] as! Int
+        notifNumberLbl.text = "\(count)"
+        notifNumberLbl.superview?.isHidden = false
     }
     
-    @objc func showChatRedCircle(){
-        chatsNumberLbl.isHidden = false
+    @objc func showChatRedCircle(notification:NSNotification){
+        let count = notification.userInfo!["countMessages"] as! Int
+        chatsNumberLbl.text = "\(count)"
+        chatsNumberLbl.superview?.isHidden = false
     }
     
     func setupLocation(){
@@ -451,7 +456,7 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
     
     
     @IBAction func notificationBtnPressed(_ sender: Any) {
-        notifNumberLbl.isHidden = true
+        notifNumberLbl.superview?.isHidden = true
         let vc = UIStoryboard(name: "Chat", bundle: nil).instantiateViewController(withIdentifier: "NotificationsVC") as! NotificationsVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -463,7 +468,7 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
     }
     
     @IBAction func chatsBtnPressed(_ sender: Any) {
-        chatsNumberLbl.isHidden = true
+        chatsNumberLbl.superview?.isHidden = true
         let vc = UIStoryboard(name: "Chat", bundle: nil).instantiateViewController(withIdentifier: "ChatListVC") as! ChatListVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -496,7 +501,7 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
 extension HomeVC:CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+       // print("locations = \(locValue.latitude) \(locValue.longitude)")
         self.lat = locValue.latitude
         self.lng = locValue.longitude
         UserInfo.userLat = "\(locValue.latitude)"

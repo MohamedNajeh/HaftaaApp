@@ -10,6 +10,7 @@ import AVKit
 import AVFoundation
 import Cosmos
 import DropDown
+import Alamofire
 class
 adsDetailsVC: UITableViewController {
     
@@ -21,6 +22,7 @@ adsDetailsVC: UITableViewController {
     var dropDown = DropDown()
     var reasonID = 0 , displayesImage = 1
     var addID:Int?
+    var selectedImage:UIImage?
     
     
     @IBOutlet weak var tabll: UITableView!
@@ -70,6 +72,14 @@ adsDetailsVC: UITableViewController {
     @IBOutlet weak var stackDeleteAndEdit: UIStackView!
     
     @IBOutlet weak var imagesCountLbl: UILabel!
+    
+    
+    @IBOutlet weak var productPriceTV: UITextView!
+    @IBOutlet weak var totalPriceLbl: UILabel!
+    @IBOutlet weak var transactionNumberTF: UITextField!
+    @IBOutlet weak var selectionFileLbl: UILabel!
+    @IBOutlet weak var paymentView: UIView!
+    
     let view1 = UIView()
     let stackView = UIStackView()
     let btnWhatsApp = UIButton()
@@ -82,13 +92,17 @@ adsDetailsVC: UITableViewController {
         
         getReasons()
         configureCommentsTable()
-        
+        AttachmentHandler.shared.delegate = self
         commentsAndAdTable.register(CommentsHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CommentsHeaderCollectionReusableView")
         commentsAndAdTable.register(CommentsHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "CommentsHeaderCollectionReusableView")
         configureUI()
         commentTF.text = "اكتب تعليقك"
         commentTF.textColor = UIColor.lightGray
         commentTF.delegate = self
+        
+        productPriceTV.text = "ادخل سعر المنتج"
+        productPriceTV.textColor = UIColor.lightGray
+        productPriceTV.delegate = self
         
         
     }
@@ -222,15 +236,18 @@ adsDetailsVC: UITableViewController {
     
     @objc func openWhatsApp(){
         let phoneNumber =  details?.phone//"+201030778096" // you need to change this number
-        let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(phoneNumber ?? "000")")!
-            if UIApplication.shared.canOpenURL(appURL) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-                }
-                else {
-                    UIApplication.shared.openURL(appURL)
-                }
+        let message = "السلام عليكم بخصوص اعلانك في سوق الهفتاء رقم (\(details?.id ?? 0)) حول \(details?.title ?? "")"
+        var sample = URLComponents(string: "https://api.whatsapp.com/send")
+        sample?.queryItems = [URLQueryItem(name: "phone", value: phoneNumber),URLQueryItem(name: "text", value: message)]
+        guard let appURL = sample?.url else { return }
+        if UIApplication.shared.canOpenURL(appURL) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
             }
+            else {
+                UIApplication.shared.openURL(appURL)
+            }
+        }
     }
     
     @objc func callPhone(){
@@ -244,6 +261,7 @@ adsDetailsVC: UITableViewController {
         let vc = UIStoryboard(name: "Chat", bundle: nil).instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
         vc.id = details?.user?.id ?? 0
         vc.title = details?.user?.name
+        vc.defaultMessage = "رسالة خاصة بخصوص الاعلان \(details?.title ?? "")"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -327,6 +345,10 @@ adsDetailsVC: UITableViewController {
                         self.btnDelete.isHidden = false
                     }
                     
+                    if self.details?.user?.id == UserInfo.getUserID() {
+                        self.paymentView.isHidden = false
+                    }
+                    
                     
                 }
             case .failure(let error):
@@ -375,15 +397,6 @@ adsDetailsVC: UITableViewController {
     }
     
     @IBAction func shareBtnPressed(_ sender: Any) {
-//        if !rateView.isHidden {rateView.isHidden = true}
-//        if let _ = self.view.viewWithTag(222) {
-//            self.view.viewWithTag(222)?.removeFromSuperview()
-//        }else{
-//            configureViewShare()
-//            configureShareStackView()
-//            configureBtns()
-//        }
-       // let sharePath = "https://hvps.exdezign.com/show_ads/\((details?.title)?.replacingOccurrences(of: " ", with: "_") ?? "")/\(details?.id ?? 0)"
         let sharePath = "https://alhfta.com/show_ads/ads/\(details?.id ?? 0)"
         let message = "قد يهمك هذا الاعلان"
         if let name = URL(string: sharePath), !name.absoluteString.isEmpty {
@@ -588,13 +601,54 @@ adsDetailsVC: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func chooseTransactionFileBtn(_ sender: Any) {
+        AttachmentHandler.shared.showAttachmentActionSheetForImage(vc: self)
+    }
+    
+    
+    @IBAction func sendTransactionInfo(_ sender: Any) {
+        guard let image = self.selectedImage else {
+            AlertsManager.showAlert(withTitle: "عفوا", message: "يرجى اختيار صورة الحوالة", viewController: self)
+            return
+        }
+        
+        self.payForAdd(File: image.jpegData(compressionQuality: 0.5) ?? Data(), url: "https://hvps.exdezign.com/api/send_transaction", transactionID: self.transactionNumberTF.text ?? "", WithName: "image", adsID: "\(self.details?.id ?? 0)") { data in
+            //print(data)
+            AlertsManager.showAlert(withTitle: "تم", message: data?.message, viewController: self)
+        } isError: { error in
+            print(error)
+            AlertsManager.showAlert(withTitle: "معذرة", message: error, viewController: self)
+        }
+
+    }
+    
+    @IBAction func archiveAdd(_ sender: Any) {
+        print("archive")
+        NetworkManager.shared.archiveAdd(url: "archive_ads/\(details?.id ?? 0)") { response in
+            switch response {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    AlertsManager.showAlert(withTitle: "تم", message: data.message, viewController: self, showingCancelButton: false, showingOkButton: true, cancelHandler: nil, actionTitle: "حسنا", actionStyle: .default) { ـ in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            case .failure(let error):
+                AlertsManager.showAlert(withTitle: "معذرة", message: error.localizedDescription, viewController: self)
+            }
+        }
+    }
 }
 
-extension adsDetailsVC:UITextViewDelegate {
+extension adsDetailsVC:UITextViewDelegate, imageUpload {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if commentTF.textColor == UIColor.lightGray {
             commentTF.text = nil
             commentTF.textColor = UIColor.black
+        }
+        
+        if productPriceTV.textColor == UIColor.lightGray {
+            productPriceTV.text = nil
+            productPriceTV.textColor = UIColor.black
         }
     }
     
@@ -602,6 +656,84 @@ extension adsDetailsVC:UITextViewDelegate {
         if commentTF.text.isEmpty {
             commentTF.text = "اكتب تعليقك"
             commentTF.textColor = UIColor.lightGray
+        }
+        
+        if productPriceTV.textColor == UIColor.lightGray {
+            productPriceTV.text = "ادخل سعر المنتج"
+            productPriceTV.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView == productPriceTV {
+            let amount = Double(productPriceTV.text) ?? 0
+            totalPriceLbl.text = "اجمالي عمولة السوق\(amount / 100) ريال"
+        }
+    }
+    
+    func handleImageSelection(image: UIImage) {
+        self.selectedImage = image
+        self.selectionFileLbl.text = "تم اختيار ملف بنجاح"
+    }
+    
+    func setImgID(id: Int) {
+        
+    }
+    
+    
+    func payForAdd(File fileData: Data ,url:String,transactionID:String ,WithName fileName:String , adsID : String, isSucess : @escaping(PayTransaction?) -> Void , isError : @escaping (String) -> Void ){
+        
+        var urlComps = URLComponents(string: url)!
+        let queryItems = [URLQueryItem(name: "transaction_id", value: transactionID),URLQueryItem(name: "ads_id", value: adsID)]
+        urlComps.queryItems = queryItems
+
+        let headers:HTTPHeaders = ["Authorization": "Bearer \(UserInfo.getUserToken())","Content-Type":"multipart/form-data","Accept":"application/json"]
+    
+        let result = urlComps.url!
+        
+        AF.upload(multipartFormData: { (multipartFormData) in
+            
+            multipartFormData.append(fileData, withName: fileName, fileName: "\(fileName).jpg", mimeType: "image/jpg")
+            multipartFormData.append(transactionID.data(using: .utf8) ?? Data(), withName: "transaction_id")
+            multipartFormData.append(adsID.data(using: .utf8) ?? Data(), withName: "ads_id")
+            
+        }, to: result,method: .post, headers: headers).uploadProgress(closure: { (progress) in
+            
+           // AddLabDataSource.delegate?.updateProgressViewWith(fractions: progress.fractionCompleted)
+            
+        }) .responseDecodable { (response: DataResponse<PayTransaction, AFError>) in
+            
+            switch response.result {
+                
+            case .failure(let error):
+                
+                print(error)
+                isError(error.localizedDescription)
+                break
+                
+            case .success(let model):
+                
+                print(response.response!.statusCode)
+                
+                print(model.message ?? "")
+                
+                //   if model.success == true {
+                
+                print("-----------------")
+                
+                print(model.message ?? "Success")
+                
+                print("-----------------")
+                
+                isSucess(model)
+                
+                //                } else {
+                //
+                //                    print("Error loading attachment")
+                //
+                //                }
+                
+            }
         }
     }
 }

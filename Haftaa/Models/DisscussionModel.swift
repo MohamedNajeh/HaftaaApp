@@ -7,20 +7,20 @@ import Foundation
 
 // MARK: - DiscussionModel
 struct DiscussionModel: Codable {
-    let data: DiscussionData
-    let message: String
-    let success: Bool
-    let status: Int
+    let data: DiscussionData?
+    let message: String?
+    let success: Bool?
+    let status: Int?
 }
 
 // MARK: - DataClass
 struct DiscussionData: Codable {
-    let data: [Discussions]
-    let pages: Int
+    let data: [Discussions]?
+    let pages: Int?
 }
 
 struct OneDiscussionDetails: Codable {
-    let data:Discussions?
+    var data:Discussions?
     let message:String?
     let success:Bool?
     let status:Int?
@@ -28,10 +28,12 @@ struct OneDiscussionDetails: Codable {
 
 // MARK: - Datum
 struct Discussions: Codable {
-    let id: Int
-    let title, datumDescription, since, listUpdate: String
-    let countComment, countLike, countDisLike: Int
-    let comments: [DiscussComment]
+    let id: Int?
+    let title, datumDescription, since, listUpdate: String?
+    let countComment, countLike, countDisLike: Int?
+    var comments: [DiscussComment]?
+    let url:String?
+    let route:String?
 
     enum CodingKeys: String, CodingKey {
         case id, title
@@ -42,6 +44,8 @@ struct Discussions: Codable {
         case countLike = "count_like"
         case countDisLike = "count_dis_like"
         case comments
+        case url
+        case route
     }
 }
 
@@ -50,46 +54,12 @@ struct DiscussComment: Codable {
     let id: Int?
     let user: User?
     let comment, date: String?
+    let parent: commentParent?
+    let delete: Int?
 }
 
-// MARK: - User
-//struct User: Codable {
-//    let id: Int
-//    let userName, name, phone: String
-//    let photoPath: String
-//    let photoID: String
-//    let nationalIdentityPath: String
-//    let nationalIdentity: Int
-//    let commercialRegisterPath: String
-//    let commercialRegister: Int
-//    let favourPath: String
-//    let favour: Int
-//    let workPermitPath: String
-//    let workPermit: Int
-//    let sajalMadaniun: String
-//    let allowPhone, whatsapp: Int
-//    let email: Email
-//    let city: City?
-//    let newPassword: Int
-//    let country: Country
-//    let step, trusted: Int
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id, userName, name, phone
-//        case photoPath = "photo_path"
-//        case photoID = "photo_id"
-//        case nationalIdentityPath = "national_identity_path"
-//        case nationalIdentity = "national_identity"
-//        case commercialRegisterPath = "commercial_register_path"
-//        case commercialRegister = "commercial_register"
-//        case favourPath = "favour_path"
-//        case favour
-//        case workPermitPath = "work_permit_path"
-//        case workPermit = "work_permit"
-//        case sajalMadaniun = "sajal_madaniun"
-//        case allowPhone = "allow_phone"
-//        case whatsapp, email, city
-//        case newPassword = "new_password"
-//        case country, step, trusted
-//    }
-//}
+struct commentParent:Codable {
+    let id: Int?
+    let user: User?
+    let comment:String?
+}

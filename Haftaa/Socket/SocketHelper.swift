@@ -28,8 +28,8 @@ class SocketHelper {
     static let shared = SocketHelper()
     
     //private var manager: SocketManager?
-   // let manager = SocketManager(socketURL: URL(string: "https://soket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
-    let manager = SocketManager(socketURL: URL(string: "https://websocket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "https://soket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
+    //let manager = SocketManager(socketURL: URL(string: "https://websocket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
     var socket: SocketIOClient?
     init() {
         //super.init()
@@ -78,8 +78,23 @@ class SocketHelper {
         socket!.on("new_message") { data, ack in
             print(data)
             
-            
             return
+        }
+        
+        socket!.on("count_notification") { data, ack in
+            print("Not is \(data[0])")
+            if let count = data[0] as? Int {
+                print(count)
+                NotificationCenter.default.post(name: .init("showNotifRedCircle"), object: nil ,userInfo: ["countNotification":count])
+            }
+        }
+        
+        socket!.on("count_message") { data, ack in
+            print("Not is \(data[0])")
+            if let count = data[0] as? Int {
+                NotificationCenter.default.post(name: .init("showChatRedCircle"), object: nil , userInfo: ["countMessages":count])
+                print(count)
+            }
         }
         
         socket!.on("connection") { data, ack in
@@ -97,7 +112,7 @@ class SocketHelper {
                 let messageModel = try JSONDecoder().decode([NotifyModel].self, from: data)
                 print(messageModel[0].title)
                 self.startNotification(body: messageModel[0].title ?? "" )
-                NotificationCenter.default.post(name: .init("showNotifRedCircle"), object: nil )
+                //NotificationCenter.default.post(name: .init("showNotifRedCircle"), object: nil )
             } catch let error {
                 print("Something happen wrong here...\(error.localizedDescription)")
                 
@@ -207,7 +222,7 @@ class SocketHelper {
             do {
                 let messageModel = try JSONDecoder().decode([MessageModel].self, from: data)
                 completion(messageModel)
-                NotificationCenter.default.post(name: .init("showChatRedCircle"), object: nil )
+               // NotificationCenter.default.post(name: .init("showChatRedCircle"), object: nil )
             } catch let error {
                 print("Something happen wrong here...\(error.localizedDescription)")
                 completion(nil)

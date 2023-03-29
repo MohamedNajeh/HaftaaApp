@@ -21,6 +21,11 @@ struct AddGeneralComment:Codable {
     let status:Int?
 }
 
+struct PayTransaction:Codable{
+    let message:String?
+    let success:Bool?
+}
+
 struct ForgetPssModel:Codable {
     let data:User?
     let message:String?

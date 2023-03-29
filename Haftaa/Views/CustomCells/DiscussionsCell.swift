@@ -36,7 +36,7 @@ class DiscussionsCell: UITableViewCell {
     
     func configureCell(data:Discussions){
         btnTitle.setTitle(data.title, for: .normal)
-        descriptionLbl.attributedText = data.datumDescription.htmlToAttributedString
+        descriptionLbl.attributedText = data.datumDescription?.htmlToAttributedString
         commentsCountLbl.text = "\(data.countComment)"
         likesCountLbl.text = "\(data.countLike)"
         dislikeCountLbl.text = "\(data.countDisLike)"

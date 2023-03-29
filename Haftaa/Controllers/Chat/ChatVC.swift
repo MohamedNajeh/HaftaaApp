@@ -14,6 +14,7 @@ class ChatVC: UIViewController {
     @IBOutlet weak var messageTF: UITextField!
     var chatData:ChatData?
     var messages:[Message] = []
+    var defaultMessage = ""
     @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
    // var id = 0 {
 //        didSet {
@@ -31,6 +32,7 @@ class ChatVC: UIViewController {
         SocketHelper.shared.getNotification()
         observeNewChatMessage()
         showChatMessages(id: self.id)
+        self.messageTF.text = defaultMessage
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.keyboardNotification(notification:)),
                                                name: UIResponder.keyboardWillChangeFrameNotification,

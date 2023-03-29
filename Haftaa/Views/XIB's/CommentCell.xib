@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,7 +40,7 @@
                                 </subviews>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="اعلان جيد" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="DDT-rh-hQu">
-                                <rect key="frame" x="53" y="27" width="350" height="70"/>
+                                <rect key="frame" x="53" y="54" width="350" height="43"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="BNg-bL-hdn"/>
@@ -48,7 +49,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eA2-mK-Er6">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eA2-mK-Er6">
                                 <rect key="frame" x="2" y="67" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Fw2-ho-i5b"/>
@@ -56,6 +57,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrowshape.turn.up.left.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="replayBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="irI-6U-h53"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ghg-8Q-yUq">
                                 <rect key="frame" x="2" y="2" width="53.5" height="16"/>
@@ -81,15 +85,27 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBz-pY-mwH">
+                                <rect key="frame" x="355" y="26" width="30" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="wQe-9P-mqD"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <connections>
+                                    <action selector="showParent:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="oU1-fW-VhY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529411766" green="0.94509803921568625" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="DDT-rh-hQu" secondAttribute="bottom" constant="2" id="3UB-Zi-d7a"/>
-                            <constraint firstItem="DDT-rh-hQu" firstAttribute="top" secondItem="M9n-dF-shC" secondAttribute="bottom" constant="5" id="6DT-8H-iXq"/>
+                            <constraint firstItem="ZBz-pY-mwH" firstAttribute="top" secondItem="Wav-Va-cxh" secondAttribute="bottom" constant="4" id="JUs-6q-5Np"/>
+                            <constraint firstAttribute="trailing" secondItem="ZBz-pY-mwH" secondAttribute="trailing" constant="20" id="LTo-at-cv3"/>
                             <constraint firstAttribute="trailing" secondItem="DDT-rh-hQu" secondAttribute="trailing" constant="2" id="QAX-Xy-2j2"/>
                             <constraint firstAttribute="bottom" secondItem="DDT-rh-hQu" secondAttribute="bottom" constant="2" id="S0F-sP-ugC"/>
                             <constraint firstItem="ghg-8Q-yUq" firstAttribute="leading" secondItem="MgV-4W-JWi" secondAttribute="leading" constant="2" id="XDo-M8-fBN"/>
                             <constraint firstAttribute="bottom" secondItem="eA2-mK-Er6" secondAttribute="bottom" constant="2" id="bCh-pG-hcr"/>
+                            <constraint firstItem="DDT-rh-hQu" firstAttribute="top" secondItem="ZBz-pY-mwH" secondAttribute="bottom" constant="8" symbolic="YES" id="d4D-7l-xDM"/>
                             <constraint firstItem="ghg-8Q-yUq" firstAttribute="top" secondItem="MgV-4W-JWi" secondAttribute="top" constant="2" id="k7Z-LE-93I"/>
                             <constraint firstItem="M9n-dF-shC" firstAttribute="top" secondItem="MgV-4W-JWi" secondAttribute="top" constant="2" id="lsp-hz-MM8"/>
                             <constraint firstItem="eA2-mK-Er6" firstAttribute="leading" secondItem="MgV-4W-JWi" secondAttribute="leading" constant="2" id="rA0-Th-qoR"/>
@@ -113,7 +129,9 @@
             <connections>
                 <outlet property="commentLbl" destination="DDT-rh-hQu" id="uRY-LO-ZDJ"/>
                 <outlet property="deletBtn" destination="kpW-bw-l6e" id="FBd-ej-yhv"/>
-                <outlet property="replayBtn" destination="eA2-mK-Er6" id="Jii-5x-BZX"/>
+                <outlet property="parentLbl" destination="ZBz-pY-mwH" id="zD0-9q-ES7"/>
+                <outlet property="replayBtn" destination="eA2-mK-Er6" id="HcF-N2-44V"/>
+                <outlet property="showParentBtn" destination="ZBz-pY-mwH" id="JD2-Bv-hoc"/>
                 <outlet property="timeLbl" destination="lSY-Rq-zsL" id="nOv-9I-RyN"/>
                 <outlet property="userLbl" destination="Wav-Va-cxh" id="bui-c1-Ott"/>
             </connections>
@@ -121,11 +139,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="106"/>
+        <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="104"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="trash.fill" catalog="system" width="121" height="128"/>
+        <image name="trash.fill" catalog="system" width="119" height="128"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

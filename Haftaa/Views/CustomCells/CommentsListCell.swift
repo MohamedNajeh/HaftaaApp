@@ -34,7 +34,7 @@ class CommentsListCell: UICollectionViewCell,handleDeleteAndReplayProtocol {
             if messageInfo?[0].parent_id != 0 {
                 self.comments.enumerated().forEach { (index,value) in
                     if value.id == messageInfo?[0].parent_id{
-                        self.comments[index].childes.append(comment)
+                        self.comments[index].childes?.append(comment)
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
@@ -120,13 +120,13 @@ extension CommentsListCell:UICollectionViewDelegate,UICollectionViewDataSource,U
         return comments.count
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return comments[section].childes.count
+        return comments[section].childes?.count ?? 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CommentCell", for: indexPath) as! CommentCell
-        cell.userLbl.text = comments[indexPath.section].childes[indexPath.row].users.userName
-        cell.timeLbl.text = comments[indexPath.section].childes[indexPath.row].since
-        cell.commentLbl.text = comments[indexPath.section].childes[indexPath.row].comment
+        cell.userLbl.text = comments[indexPath.section].childes?[indexPath.row].users?.userName
+        cell.timeLbl.text = comments[indexPath.section].childes?[indexPath.row].since
+        cell.commentLbl.text = comments[indexPath.section].childes?[indexPath.row].comment
         return cell
     }
     
@@ -142,13 +142,13 @@ extension CommentsListCell:UICollectionViewDelegate,UICollectionViewDataSource,U
         
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CommentsHeaderCollectionReusableView", for: indexPath) as! CommentsHeaderCollectionReusableView
-            header.label.text = comments[indexPath.section].users.userName
+            header.label.text = comments[indexPath.section].users?.userName
             header.comment.text = comments[indexPath.section].comment
             header.timeLbl.text = comments[indexPath.section].since
             header.delegate = self
             header.replayButton.tag = indexPath.section
             header.deleteBtn.tag = indexPath.section
-            if comments[indexPath.section].users.id == UserInfo.getUserID(){
+            if comments[indexPath.section].users?.id == UserInfo.getUserID(){
                 header.deleteBtn.isHidden = false
             }else {
                 header.deleteBtn.isHidden = true

@@ -20,8 +20,8 @@ class NetworkManager {
     
     static let shared = NetworkManager()
   
-    let baseURL   = "https://alhfta.com/api/"
-    //let baseURL = "https://hvps.exdezign.com/api/"
+    //let baseURL   = "https://alhfta.com/api/"
+    let baseURL = "https://hvps.exdezign.com/api/"
     //let baseURL = "https://alhfta.serv2.touch-corp.com/api/"
     
     var delegate:imageUpload?
@@ -240,6 +240,20 @@ class NetworkManager {
                                   completion: completion)
     }
     
+    func RequestUploadImageTransaction(fileDate:Data, parameters:Parameters,completion:  @escaping (Result<FileModel, AFError>, Int?) -> Void){
+        //let parameters:Parameters = ["file":"file"]
+        print("--->",parameters)
+         API.shared.performRequest(url: baseURL+"send_transaction",
+                                  method: .post,
+                                  parameters: parameters,
+                                   headersType: [.authorization(bearerToken: UserInfo.getUserToken())],
+                                  fileUrlKey: ["image"],
+                                  files: [fileDate],
+                                  filesNames: ["image.png"],
+                                  mimeTypes: ["image/jpg"],
+                                  completion: completion)
+    }
+    
     
     func RequestUploadVedio(  fileDate:Data, completion:  @escaping (Result<FileModel, AFError>, Int?) -> Void){
         let parameters:Parameters = ["file":"file"]
@@ -299,7 +313,7 @@ class NetworkManager {
                     print("Success Send")
                     self.delegate?.setImgID(id: model.data?.id ?? 0)
                     completion(.success(model))
-                   
+                    
                     //self.uploadUmage?.imageUpoladed(path: model.data ?? "")
                 }else{
                     //completion(.failure(model.))
@@ -312,8 +326,6 @@ class NetworkManager {
                 print("fail")
             }
         }
-        
-        
     }
     
     func updateProfile(url:String?,name:String?,userName:String?,phoneNumber:String?,country_id:String?,cityID:String?,email:String?,photoPath:String?,password:String?,nationalID:Int?,commericalID:Int?,favor:Int?,workPermit:Int?,segelMadani:String?,allowPhone:Int?,allowWhats:Int?,completion: @escaping (Result<LoginModel,CError>) -> Void){
@@ -598,12 +610,13 @@ class NetworkManager {
         
     }
     
-    func addCommentToGeneral(url:String?,chat_id:Int?,message:String?,completion: @escaping (Result<AddGeneralComment,CError>) -> Void){
+    func addCommentToGeneral(url:String?,chat_id:Int?,message:String?,parentID:Int?,completion: @escaping (Result<AddGeneralComment,CError>) -> Void){
         guard let url = URL(string:"\(baseURL+url!)") else {return}
         
         let parameters:[String:Any] = [
             "chat_id": chat_id!, //email
-            "message": message! //password
+            "message": message!, //password
+            "parent_id": parentID!, //password
            ]
         let headers: HTTPHeaders = [.authorization(bearerToken: UserInfo.getUserToken())]
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default,headers:headers).response { response in
@@ -778,23 +791,30 @@ class NetworkManager {
         
     }
     
+    func archiveAdd(url:String?,completion: @escaping (Result<AddGeneralComment,CError>) -> Void){
+        guard let url = URL(string:"\(baseURL+url!)") else {return}
+    
+        let headers: HTTPHeaders = [.authorization(bearerToken: UserInfo.getUserToken())]
+        AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default,headers:headers).response { response in
+            switch response.result {
+            case .success:
+                guard let data = response.data else {return}
+                do{
+                    let decoder = JSONDecoder()
+                    let resp = try decoder.decode(AddGeneralComment.self, from: data)
+                   // guard let cont = resp.data else{return}
+                    completion(.success(resp))
+                }catch{
+                    print(error.localizedDescription)
+                    completion(.failure(.invalidData))
+                }
+                
+            case .failure:
+                completion(.failure(.invalidData))
+            }
+            
+        }
+        
+    }
 }
-//        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).response { response in
-//            switch response.result {
-//            case .success:
-//                guard let data = response.data else {return}
-//                do{
-//                    let decoder = JSONDecoder()
-//                    let resp = try decoder.decode(FileModel.self, from: data)
-//                   // guard let cont = resp.data else{return}
-//                    completion(.success(resp))
-//                }catch{
-//                    completion(.failure(.invalidData))
-//                }
-//
-//            case .failure:
-//                completion(.failure(.invalidData))
-//            }
-//
-//        }
     

@@ -46,7 +46,7 @@ class DisscussionsVC: UIViewController {
             switch response {
             case .success(let discussions):
                 print(discussions)
-                self.discussions = discussions.data.data
+                self.discussions = discussions.data?.data
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

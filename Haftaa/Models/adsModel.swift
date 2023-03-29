@@ -94,11 +94,11 @@ struct City: Codable {
 
 // MARK: - Comment
 struct Comment: Codable {
-    let id:Int
-    let users: User
-    let since, comment: String
-    var childes: [Comment]
-    let deleteComment: Int
+    let id:Int?
+    let users: User?
+    let since, comment: String?
+    var childes: [Comment]?
+    let deleteComment: Int?
 
     enum CodingKeys: String, CodingKey {
         case users, since, comment, childes,id
