@@ -28,8 +28,8 @@ class SocketHelper {
     static let shared = SocketHelper()
     
     //private var manager: SocketManager?
-    let manager = SocketManager(socketURL: URL(string: "https://soket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
-    //let manager = SocketManager(socketURL: URL(string: "https://websocket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
+    //let manager = SocketManager(socketURL: URL(string: "https://soket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "https://websocket.hvps.exdezign.com?user_id=\(UserInfo.getUserID())&user_type=user")!, config: [.connectParams(["user_id":"\(UserInfo.getUserID())","user_type":"user"]),.log(true), .compress])
     var socket: SocketIOClient?
     init() {
         //super.init()
@@ -61,9 +61,6 @@ class SocketHelper {
         socket = manager.defaultSocket
         addHandlers()
         socket?.connect()
-        //        getMessage { Message in
-        //            print(Message)
-        //        }
     }
     
     func addHandlers() {

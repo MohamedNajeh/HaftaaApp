@@ -52,26 +52,18 @@ class DiscussionDetailsVC: UIViewController {
     func observeNewComment(){
         SocketHelper.shared.getGeneralComment { [weak self] messageInfo in
             
-            self?.getDetails(id: self?.idID ?? 0)
-            print(messageInfo)
-            let user = User(id: messageInfo?[0].user_id, userName: messageInfo?[0].name, name: messageInfo?[0].name, phone: "", photoPath: "", photoID: "", nationalIdentityPath: "", nationalIdentity: 0, commercialRegisterPath: "", commercialRegister: 0, favourPath: "", favour: 0, workPermitPath: "", workPermit: 0, sajalMadaniun: "", allowPhone: 0, whatsapp: 0, email: "", city: nil, newPassword: 0, country: nil, step: 0, trusted: 0)
-            let newComment = DiscussComment(id: messageInfo?[0].id, user: user, comment: messageInfo?[0].comment, date: messageInfo?[0].since,parent: nil,delete: 0)
-            self?.comments?.append(newComment)
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-                if self?.comments?.count ?? 0 > 2 {
-                    let indexPath = NSIndexPath(row: (self?.comments?.count ?? 0) - 1, section: 0)
-                    self?.collectionView.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
-                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self?.getDetails(id: self?.idID ?? 0)
             }
-            self?.details?.data?.comments?.append(newComment)
         }
     }
     
     func getDetails(id:Int){
         showLoadingView()
         NetworkManager.shared.fetchData(url: "general_chat/\(id)", decodable: OneDiscussionDetails.self) {[weak self] response in
-            self?.removeLoadingView()
+            DispatchQueue.main.asyncAfter(wallDeadline: .now() + 2) {
+                self?.removeLoadingView()
+            }
             switch response {
             case .success(let resp):
                 print(resp)
@@ -164,12 +156,29 @@ extension DiscussionDetailsVC:UICollectionViewDelegate,UICollectionViewDataSourc
     }
     
     func replay(tag: Int) {
-        self.commentTF.becomeFirstResponder()
-        guard let parent = comments?[tag].id else {
-            print("couldn't get parent at tag \(tag)")
-            return
+        //self.commentTF.becomeFirstResponder()
+        
+        let alert = UIAlertController(title: "اضافة رد", message: "اضف رد على هذا التعليق", preferredStyle: .alert)
+
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            //textField.text = "Some default text"
+            textField.textAlignment = .right
         }
-        self.parentID = parent ?? 0
+
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "اضافة", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            print("Text field: \(textField?.text ?? "")")
+            self.addComment(id: self.idID ?? 0, message: textField?.text ?? "", parentID: self.comments?[tag].id ?? 0)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "الغاء", style: .cancel, handler: nil))
+
+        // 4. Present the alert.
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+      
+        //self.parentID = parent ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -190,6 +199,7 @@ extension DiscussionDetailsVC:UICollectionViewDelegate,UICollectionViewDataSourc
         cell.deletBtn.tag      = indexPath.row
         cell.showParentBtn.tag = indexPath.row
         cell.replayBtn.tag     = indexPath.row
+        cell.deletBtn.isHidden = comments?[indexPath.row].delete == 1 ? false : true
         if UserInfo.getUserID() == comments?[indexPath.row].user?.id {
             cell.deletBtn.isHidden = false
         }else{

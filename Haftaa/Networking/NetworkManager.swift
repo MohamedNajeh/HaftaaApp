@@ -20,14 +20,15 @@ class NetworkManager {
     
     static let shared = NetworkManager()
   
-    //let baseURL   = "https://alhfta.com/api/"
-    let baseURL = "https://hvps.exdezign.com/api/"
+    let baseURL   = "https://alhfta.com/api/"
+    //let baseURL = "https://hvps.exdezign.com/api/"
     //let baseURL = "https://alhfta.serv2.touch-corp.com/api/"
     
     var delegate:imageUpload?
     
     func fetchData<T:Decodable>(url:String?,decodable:T.Type,completion: @escaping (Result<T,CError>) -> Void){
         guard let url = URL(string:"\(baseURL+url!)") else {return}
+        print(url)
         let headers: HTTPHeaders = [.authorization(bearerToken: UserInfo.getUserToken())]
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).response { response in
             switch response.result {
@@ -750,7 +751,7 @@ class NetworkManager {
                    // guard let cont = resp.data else{return}
                     completion(.success(resp))
                 }catch{
-                    print(error.localizedDescription)
+                    print(error)
                     completion(.failure(.invalidData))
                 }
                 

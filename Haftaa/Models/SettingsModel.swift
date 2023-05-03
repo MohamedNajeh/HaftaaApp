@@ -14,11 +14,11 @@ struct SettingsModel: Codable {
 }
 struct SettingsData: Codable {
     let name, email, phone, whatsapp: String
-    let categoryImage: Int
+    let categoryImage, commission: Int
     let logo, appImage: String
     let maintenance, activeRegister: Int
     let maintenanceMessage, dataDescription, notification, section: String
-    let commission, facebook, youtube: String
+    let facebook, youtube: String
     let twitter: String
     let instagram: String
     let snap: String

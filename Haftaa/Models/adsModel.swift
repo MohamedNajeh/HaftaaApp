@@ -58,6 +58,7 @@ struct AddsDetails: Codable {
     let typeAds: String?
     let mayReport, allreport: JSONAny?
     let reviewAds: [ReviewAd]?
+    let bankAccounts: [BanksData]?
     let favorit: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -72,7 +73,12 @@ struct AddsDetails: Codable {
         case reviewAds = "review_ads"
         case favorit
         case isType = "is_type"
+        case bankAccounts = "bank_account"
     }
+}
+
+struct BanksData:Codable{
+    let name, number_account, iban:String?
 }
 
 
@@ -97,12 +103,13 @@ struct Comment: Codable {
     let id:Int?
     let users: User?
     let since, comment: String?
-    var childes: [Comment]?
     let deleteComment: Int?
+    let parents:commentParentForAds?
 
     enum CodingKeys: String, CodingKey {
-        case users, since, comment, childes,id
+        case users, since, comment,id
         case deleteComment = "delete_comment"
+        case parents
     }
 }
 

@@ -162,6 +162,8 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
         loginBarBtn.isHidden = false
         chatsBtn.isHidden = true
         notificationBtn.isHidden = true
+        chatsNumberLbl.superview?.isHidden = true
+        notifNumberLbl.superview?.isHidden = true
     }
     
     func startMarqueeLabelAnimation() {

@@ -36,7 +36,7 @@ extension LoginVC:LoginProtocol{
                 print(user)
             case.failure(let error):
                 AlertsManager.showAlert(withTitle: "خطأ", message: error.localizedDescription, viewController: self)
-                print(error.localizedDescription)
+                print(error)
             }
         }
     }

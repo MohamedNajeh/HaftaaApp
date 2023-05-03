@@ -63,3 +63,9 @@ struct commentParent:Codable {
     let user: User?
     let comment:String?
 }
+
+struct commentParentForAds:Codable {
+    let id: Int?
+    let users: User?
+    let comment:String?
+}

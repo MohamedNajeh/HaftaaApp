@@ -79,6 +79,14 @@ adsDetailsVC: UITableViewController {
     @IBOutlet weak var transactionNumberTF: UITextField!
     @IBOutlet weak var selectionFileLbl: UILabel!
     @IBOutlet weak var paymentView: UIView!
+    @IBOutlet weak var lblCommision: UILabel!
+    @IBOutlet weak var firstBankNameOutlet: UILabel!
+    @IBOutlet weak var fistBankNumber: UILabel!
+    @IBOutlet weak var firstBankIBAN: UILabel!
+    @IBOutlet weak var seconBankTitle: UILabel!
+    @IBOutlet weak var secondBankNumber: UILabel!
+    @IBOutlet weak var secondBankIBAN: UILabel!
+    
     
     let view1 = UIView()
     let stackView = UIStackView()
@@ -103,6 +111,9 @@ adsDetailsVC: UITableViewController {
         productPriceTV.text = "ادخل سعر المنتج"
         productPriceTV.textColor = UIColor.lightGray
         productPriceTV.delegate = self
+        observeNewComment()
+        
+        lblCommision.text = "دفع نسبة السوق \(UserInfo.appSettings?.data.commission ?? 1) %، لحساب نسبة السوق ادخل قيمة البيع"
         
         
     }
@@ -110,8 +121,12 @@ adsDetailsVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getAddDetails(id: self.addID ?? 0)
-        //commentsAndAdTable.reloadData()
-        //changeCollectionStat(index: 0)
+    }
+    
+    func observeNewComment(){
+        SocketHelper.shared.getAddComment { messageInfo in
+            self.getAddDetails(id: self.addID ?? 0)
+        }
     }
     
 
@@ -308,7 +323,8 @@ adsDetailsVC: UITableViewController {
     
     func getAddDetails(id:Int){
         showLoadingView()
-        NetworkManager.shared.fetchData(url: "show_ads/\(id)", decodable: AddDetailsModel.self) { response in
+        NetworkManager.shared.fetchData(url: "show_ads/\(id)", decodable: AddDetailsModel.self) { [weak self] response in
+            guard let `self` = self else { return }
             self.removeLoadingView()
             switch response {
             case .success(let adDetails):
@@ -325,6 +341,14 @@ adsDetailsVC: UITableViewController {
                     self.commentsAndAdTable.reloadData()
                     self.adImagesCollection.reloadData()
                     self.likeImg.image = self.details?.favorit == 1 ? self.likeImg.image?.tinted(with: .red) : self.likeImg.image?.tinted(with: .blue)
+                    self.firstBankNameOutlet.text = self.details?.bankAccounts?[0].name
+                    self.fistBankNumber.text = self.details?.bankAccounts?[0].number_account
+                    self.firstBankIBAN.text       = self.details?.bankAccounts?[0].iban
+                    
+                    self.seconBankTitle.text      = self.details?.bankAccounts?[1].name
+                    self.secondBankNumber.text    = self.details?.bankAccounts?[1].number_account
+                    self.secondBankIBAN.text      = self.details?.bankAccounts?[1].iban
+                    
                     self.hideViewsIfNoImagesAndVedio()
                     if self.details?.commentAllow == 0 {
                         self.commentTF.isHidden = true
@@ -624,16 +648,18 @@ adsDetailsVC: UITableViewController {
     
     @IBAction func archiveAdd(_ sender: Any) {
         print("archive")
-        NetworkManager.shared.archiveAdd(url: "archive_ads/\(details?.id ?? 0)") { response in
-            switch response {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    AlertsManager.showAlert(withTitle: "تم", message: data.message, viewController: self, showingCancelButton: false, showingOkButton: true, cancelHandler: nil, actionTitle: "حسنا", actionStyle: .default) { ـ in
-                        self.navigationController?.popViewController(animated: true)
+        AlertsManager.showAlert(withTitle: "تنبيه", message: "هل انت متاكد من ارشفة واخفاء الاعلان", viewController: self, showingCancelButton: true, showingOkButton: true, cancelHandler: nil, actionTitle: "ارشفة", actionStyle: .default) { _ in
+            NetworkManager.shared.archiveAdd(url: "archive_ads/\(self.details?.id ?? 0)") { response in
+                switch response {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        AlertsManager.showAlert(withTitle: "تم", message: data.message, viewController: self, showingCancelButton: false, showingOkButton: true, cancelHandler: nil, actionTitle: "حسنا", actionStyle: .default) { ـ in
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     }
+                case .failure(let error):
+                    AlertsManager.showAlert(withTitle: "معذرة", message: error.localizedDescription, viewController: self)
                 }
-            case .failure(let error):
-                AlertsManager.showAlert(withTitle: "معذرة", message: error.localizedDescription, viewController: self)
             }
         }
     }
@@ -666,8 +692,9 @@ extension adsDetailsVC:UITextViewDelegate, imageUpload {
     
     func textViewDidChange(_ textView: UITextView) {
         if textView == productPriceTV {
-            let amount = Double(productPriceTV.text) ?? 0
-            totalPriceLbl.text = "اجمالي عمولة السوق\(amount / 100) ريال"
+            let amount  = Double(productPriceTV.text) ?? 0
+            let percent = UserInfo.appSettings?.data.commission ?? 1
+            totalPriceLbl.text = "اجمالي عمولة السوق\(amount * Double(percent) / 100) ريال"
         }
     }
     
