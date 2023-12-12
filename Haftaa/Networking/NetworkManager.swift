@@ -78,10 +78,17 @@ class NetworkManager {
     
     func login(url:String?,phone:String?,password:String?,completion: @escaping (Result<LoginModel,CError>) -> Void){
         guard let url = URL(string:"\(baseURL+url!)") else {return}
+        var deviceID = ""
         
+        if let vendorID = UIDevice.current.identifierForVendor?.uuidString {
+            print("Vendor ID: \(vendorID)")
+            deviceID = vendorID
+        }
+
         let parameters:[String:Any] = [
             "phone": phone!, //email
-            "password": password! //password
+            "password": password!, //password
+            "device_id": deviceID
            ]
         
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).response { response in
@@ -105,6 +112,38 @@ class NetworkManager {
         }
         
     }
+    
+    func sendFCMToken(url:String?,fcmToken:String?,completion: @escaping (Result<FCMModel,CError>) -> Void){
+        guard let url = URL(string:"\(baseURL+url!)") else {return}
+        
+        let parameters:[String:Any] = [
+            "fcm_token": fcmToken!, //email
+           ]
+        
+        let headers: HTTPHeaders = [.authorization(bearerToken: UserInfo.getUserToken())]
+        
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).response { response in
+            switch response.result {
+            case .success:
+                guard let data = response.data else {return}
+                do{
+                    let decoder = JSONDecoder()
+                    let resp = try decoder.decode(FCMModel.self, from: data)
+                   // guard let cont = resp.data else{return}
+                    completion(.success(resp))
+                }catch{
+                    print(error.localizedDescription)
+                    completion(.failure(.invalidData))
+                }
+                
+            case .failure:
+                completion(.failure(.invalidData))
+            }
+            
+        }
+        
+    }
+
     
     func register(url:String?,email:String?,phoneNumber:String?,countryID:String?,privacy:String?,section:String?,name:String?,username:String?,password:String?,completion: @escaping (Result<LoginModel,CError>) -> Void){
         guard let url = URL(string:"\(baseURL+url!)") else {return}
@@ -135,7 +174,8 @@ class NetworkManager {
                     completion(.failure(.invalidData))
                 }
                 
-            case .failure:
+            case .failure(let error):
+                print(error)
                 completion(.failure(.invalidData))
             }
             

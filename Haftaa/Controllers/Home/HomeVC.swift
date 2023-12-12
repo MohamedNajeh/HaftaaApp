@@ -70,6 +70,7 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
 
         configureNavBar()
         fetchCountries()
+        sendFCMToken()
         
         setupLocation()
         setUpTabbar()
@@ -273,6 +274,17 @@ class HomeVC: UIViewController, UISearchControllerDelegate {
             case .success(let contries):
                 self.allContries = contries.data ?? []
                 UserInfo.countries = contries.data
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func sendFCMToken() {
+        NetworkManager.shared.sendFCMToken(url: "update_fcm_token", fcmToken: UserInfo.getFcmToken()) { response in
+            switch response {
+            case .success(_):
+                print("FCM sent successfully")
             case .failure(let error):
                 print(error)
             }

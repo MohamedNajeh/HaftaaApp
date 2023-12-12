@@ -64,6 +64,9 @@ class UserInfo : NSObject {
     }
     
     
+    static func setFCMToken(fcmToken:String?){
+        userDefault.set(fcmToken ,forKey: "fcmToken")
+    }
     
     static func setLoginState(isLogin:Bool?){
         userDefault.set(isLogin ,forKey: "isLogin")
@@ -108,6 +111,10 @@ class UserInfo : NSObject {
     }
     static func getUserCity() -> String {
         return userDefault.value(forKey: "userCity") as? String ?? ""
+    }
+    
+    static func getFcmToken() -> String {
+        return userDefault.value(forKey: "fcmToken") as? String ?? ""
     }
     
     static func getUserPan() -> Int {

@@ -13,6 +13,13 @@ struct LoginModel: Codable {
     let status: Int?
 }
 
+struct FCMModel: Codable {
+    let data: String?
+    let success: Bool?
+    let message: String?
+    let status: Int?
+}
+
 // MARK: - DataClass
 struct loginData: Codable {
     let id: Int?
