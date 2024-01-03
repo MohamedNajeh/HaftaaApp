@@ -23,7 +23,7 @@ enum TypeImage {
     case img6
 }
 
-class AddNewAddVC: UITableViewController {
+class AddNewAddVC: UITableViewController, UITextViewDelegate {
 
     
     let dropDown = DropDown()
@@ -61,7 +61,7 @@ class AddNewAddVC: UITableViewController {
     @IBOutlet weak var imagesCollectionView: UICollectionView!
     @IBOutlet weak var videoImgV: UIImageView!
     @IBOutlet weak var titleTF: UITextField!
-    @IBOutlet weak var detailsTF: UITextField!
+    @IBOutlet weak var detailsTF: UITextView!
     @IBOutlet weak var allowCallSwitch: UISwitch!
     @IBOutlet weak var allowCommentsSwitch: UISwitch!
     @IBOutlet weak var acceptBtn: UIButton!
@@ -97,7 +97,10 @@ class AddNewAddVC: UITableViewController {
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
         lblAgrrement.attributedText = UserInfo.appSettings?.data.section.htmlToAttributedString
-        
+        detailsTF.delegate  = self
+        detailsTF.text      = "ادخل وصف الاعلان"
+        detailsTF.textColor     = .lightGray
+        detailsTF.textAlignment = .right
         // Do any additional setup after loading the view.
     }
     
@@ -566,10 +569,14 @@ extension AddNewAddVC:vedioUpload,AssetsPickerViewControllerDelegate,GMSMapViewD
         
     }
     
-    
- 
-    
-    
-    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }else if textView.text == "" {
+            textView.text      = "ادخل وصف الاعلان"
+            textView.textColor = .lightGray
+        }
+    }
 }
 

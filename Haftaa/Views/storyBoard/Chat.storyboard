@@ -136,7 +136,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" id="sQu-8M-vsU">
-                                                <rect key="frame" x="197" y="0.0" width="78.5" height="20"/>
+                                                <rect key="frame" x="197" y="0.0" width="78.5" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="منذ شهرين" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwW-CD-qwd">
@@ -205,7 +205,7 @@
                                             <constraint firstAttribute="width" constant="120" id="RYJ-Sr-YYe"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="حفظ و ارسال"/>
+                                        <state key="normal" title="ارسال التعليق"/>
                                         <connections>
                                             <action selector="sendComment:" destination="he2-Or-3PK" eventType="touchUpInside" id="p1P-WO-bcG"/>
                                         </connections>

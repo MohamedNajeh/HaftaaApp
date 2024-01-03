@@ -1376,7 +1376,7 @@
                                                             <rect key="frame" x="0.0" y="120" width="394" height="30"/>
                                                             <color key="backgroundColor" red="0.1753260791" green="0.58549970389999995" blue="0.78945368530000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="حفظ وإرسال">
+                                                            <state key="normal" title="ارسال التعليق">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
@@ -2086,7 +2086,7 @@
         <image name="youtube" width="100" height="100"/>
         <image name="zoom" width="16" height="16"/>
         <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
